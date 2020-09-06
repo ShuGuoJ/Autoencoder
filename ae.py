@@ -2,7 +2,7 @@ import torch
 from torch import nn
 
 class AE(nn.Module):
-    def __init__(self):
+    def __init__(self, code_length=20):
         super(AE, self).__init__()
 
         # [b,784] => [b,20]
@@ -11,13 +11,13 @@ class AE(nn.Module):
             nn.ReLU(inplace=True),
             nn.Linear(256,64),
             nn.ReLU(inplace=True),
-            nn.Linear(64,20),
+            nn.Linear(64,code_length),
             nn.ReLU(inplace=True)
         )
 
         # [b,20] => [b,784]
         self.decoder = nn.Sequential(
-            nn.Linear(20,64),
+            nn.Linear(code_length,64),
             nn.ReLU(inplace=True),
             nn.Linear(64,256),
             nn.ReLU(inplace=True),

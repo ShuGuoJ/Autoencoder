@@ -18,7 +18,7 @@ test_loader = DataLoader(test_dataset, batch_size=batchsz, shuffle=True)
 net = AE()
 criterion = nn.MSELoss()
 optimizer = optim.Adam(net.parameters(), lr=lr)
-scheduler = optim.lr_scheduler.StepLR(optimizer, 10)
+scheduler = optim.lr_scheduler.StepLR(optimizer, 5)
 net.to(device)
 criterion.to(device)
 train_loss = []
@@ -47,4 +47,4 @@ for epoch in range(epochs):
     viz.images(x, nrow=6, win='x', opts=dict(title='x'))
     viz.images(x_hat, nrow=6, win='x_hat', opts=dict(title='x_hat'))
     if (epoch+1)%10==0:
-        torch.save(net.encoder, 'model/encoder_{}.pkl'.format(epoch))
+        torch.save(net, 'encoder_decoder/ae_{}.pkl'.format(epoch))
